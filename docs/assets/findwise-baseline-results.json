@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-08",
+  "mode": "keyword-baseline",
+  "split": "tuning-only",
+  "querySetSha256": "bdee63aff0447e81cabf74e281e59e69232c72cd80347087473ae06c765487f7",
+  "catalogSize": 18,
+  "queryCount": 12,
+  "positiveIntentQueries": 10,
+  "conditions": {
+    "client": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "transport": "HTTP direct loopback to ASP.NET Core; includes HTTP and JSON parse, excludes browser/Next proxy",
+    "concurrency": 1,
+    "warmupsPerQuery": 1,
+    "samplesPerQuery": 20,
+    "p95Definition": "nearest-rank empirical percentile"
+  },
+  "meanNdcg5": 0.4868794922487658,
+  "meanRecall5": 0.45,
+  "correctEmptyRate": 1,
+  "latencyP50Ms": 1.952999853529036,
+  "latencyP95Ms": 2.424399834126234,
+  "queries": [
+    {
+      "id": "t1",
+      "kind": "keyword",
+      "returnedTop5": [
+        "northline-view-27",
+        "northline-studio-27",
+        "northline-pro-27"
+      ],
+      "ndcg5": 1.0,
+      "recall5": 1.0,
+      "correctEmpty": null,
+      "p50Ms": 1.9801999442279339,
+      "p95Ms": 2.3270000237971544
+    },
+    {
+      "id": "t2",
+      "kind": "keyword",
+      "returnedTop5": [
+        "form-quiet-75"
+      ],
+      "ndcg5": 1.0,
+      "recall5": 1.0,
+      "correctEmpty": null,
+      "p50Ms": 1.8085999181494117,
+      "p95Ms": 2.130799926817417
+    },
+    {
+      "id": "t3",
+      "kind": "typo",
+      "returnedTop5": [],
+      "ndcg5": 0.0,
+      "recall5": 0.0,
+      "correctEmpty": null,
+      "p50Ms": 1.9211999606341124,
+      "p95Ms": 2.160599920898676
+    },
+    {
+      "id": "t4",
+      "kind": "synonym",
+      "returnedTop5": [
+        "northline-view-27",
+        "northline-flow-27",
+        "northline-detail-32",
+        "northline-view-24"
+      ],
+      "ndcg5": 0.8687949224876582,
+      "recall5": 0.5,
+      "correctEmpty": null,
+      "p50Ms": 1.9254499347880483,
+      "p95Ms": 2.1100000012665987
+    },
+    {
+      "id": "t5",
+      "kind": "constraint",
+      "returnedTop5": [],
+      "ndcg5": 0.0,
+      "recall5": 0.0,
+      "correctEmpty": null,
+      "p50Ms": 2.2399999434128404,
+      "p95Ms": 2.8741999994963408
+    },
+    {
+      "id": "t6",
+      "kind": "no-result",
+      "returnedTop5": [],
+      "ndcg5": null,
+      "recall5": null,
+      "correctEmpty": true,
+      "p50Ms": 1.9265500595793128,
+      "p95Ms": 2.5772000662982464
+    },
+    {
+      "id": "t7",
+      "kind": "constraint",
+      "returnedTop5": [],
+      "ndcg5": 0.0,
+      "recall5": 0.0,
+      "correctEmpty": null,
+      "p50Ms": 1.8511000089347363,
+      "p95Ms": 2.155900001525879
+    },
+    {
+      "id": "t8",
+      "kind": "typo",
+      "returnedTop5": [],
+      "ndcg5": 0.0,
+      "recall5": 0.0,
+      "correctEmpty": null,
+      "p50Ms": 1.7939000390470028,
+      "p95Ms": 2.0486998837441206
+    },
+    {
+      "id": "t9",
+      "kind": "keyword",
+      "returnedTop5": [
+        "sitwell-mesh",
+        "sitwell-support",
+        "sitwell-adapt",
+        "sitwell-task",
+        "sitwell-pro"
+      ],
+      "ndcg5": 1.0,
+      "recall5": 1.0,
+      "correctEmpty": null,
+      "p50Ms": 2.0807499531656504,
+      "p95Ms": 2.2869999520480633
+    },
+    {
+      "id": "t10",
+      "kind": "no-result",
+      "returnedTop5": [],
+      "ndcg5": null,
+      "recall5": null,
+      "correctEmpty": true,
+      "p50Ms": 1.829849905334413,
+      "p95Ms": 2.0578999537974596
+    },
+    {
+      "id": "t11",
+      "kind": "synonym",
+      "returnedTop5": [],
+      "ndcg5": 0.0,
+      "recall5": 0.0,
+      "correctEmpty": null,
+      "p50Ms": 1.9605000270530581,
+      "p95Ms": 2.279500011354685
+    },
+    {
+      "id": "t12",
+      "kind": "explicit-filters",
+      "returnedTop5": [
+        "northline-view-27",
+        "northline-studio-27"
+      ],
+      "ndcg5": 1.0,
+      "recall5": 1.0,
+      "correctEmpty": null,
+      "p50Ms": 2.2481500636786222,
+      "p95Ms": 2.535999985411763
+    }
+  ],
+  "limitations": [
+    "Developer-authored synthetic judgments; not an independent relevance study.",
+    "Only the tuning split is run. Held-out outcomes are not scored before M3.",
+    "18 products, warmed local database, no load; not production latency or scalability.",
+    "No improved system exists yet, so no comparative improvement is claimed."
+  ]
+}

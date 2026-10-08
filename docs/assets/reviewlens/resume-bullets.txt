@@ -1,0 +1,17 @@
+# Evidence-based resume bullets
+
+- Built ReviewLens, a React/TypeScript code-review lab with a Node API, persistent
+  SQLite review queue, background analysis, finding feedback and approval-gated
+  draft export for synthetic TypeScript/JavaScript pull requests.
+- Implemented AST-based checks and two structured-output AI review modes with
+  changed-line/evidence validation, idempotent submissions, repository-scoped
+  storage, bounded retries and interruption recovery; verified boundaries with
+  automated tests and desktop/mobile browser checks.
+- Compared static, diff-only and context-assisted reviewers on ten authored
+  development cases; preserved raw outputs and documented false positives,
+  unsupported reasoning, latency and token-cost estimates under a predefined rubric.
+
+Do not claim production adoption, GitHub App deployment, independent human
+evaluation, held-out performance, vulnerability prevention, or time savings.
+Keep exact metrics with their synthetic-development denominator and audit method
+in the case study rather than implying general effectiveness in a short bullet.

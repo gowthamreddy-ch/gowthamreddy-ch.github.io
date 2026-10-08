@@ -1,0 +1,64 @@
+REELLAB MODEL AND EVALUATION CARD
+October 7, 2026
+
+PURPOSE
+  Investigate whether a locally trained collaborative recommender improves
+  held-out movie ranking over a popularity baseline, and how recommendations
+  change with a sparse profile. Intended for an educational research demo.
+
+METHOD
+  Fit a global mean, shrinkage-regularized user/item biases, and 12-dimensional
+  user/item factors by alternating least squares. Use 12 iterations and
+  compare regularization values 0.05 and 0.15 on validation NDCG@10.
+  Select 0.15. Fold each evaluated profile into the same frozen item factors
+  used by the interactive application. Zero-history users receive popularity.
+
+PROTOCOL
+  Sort all ratings by timestamp and split globally at the 80th/90th percentile
+  boundaries. Equal timestamps stay together. Neither validation nor test
+  labels are fitted. For final ranking, exclude movies rated in training or
+  validation. Candidates include all movies observed in training, without
+  sampled negatives. Relevant items have held-out ratings of at least 4.
+  Users without eligible positive test items do not enter ranking averages.
+  Coverage reports relevant test items excluded because they were unseen in
+  training. Details, split sizes and cutoffs are in RESULTS.json.
+
+RESULTS
+  Full-history personalized NDCG@10: 0.193307.
+  Popularity NDCG@10: 0.192905.
+  Paired user-bootstrap 95% interval for the difference: [-0.007315, 0.007414].
+  There is no established improvement over popularity on this experiment.
+  Both methods hit at least one observed relevant item in 66.7% of the
+  147 eligible test users. 95 of those users had no training history and
+  received the same popularity fallback. This strongly affects the aggregate.
+
+  With at most three training ratings per user, personalized NDCG@10 is
+  0.181977 versus 0.192905 for popularity. Its paired interval is approximately
+  [-0.023351, -0.000097]. This sparse-profile setup performs worse on this split.
+  The sparse experiment selects the latest training ratings. It is not a
+  simulation of the demo visitor choosing a few favorite films.
+
+  Uncertainty is estimated with 1,000 paired user bootstrap samples, seed 71.
+  It describes user resampling on this fixed split, not uncertainty across
+  datasets, eras, model families, or live deployments. Differences involving
+  the final test set have not been used to retune the model.
+
+LIMITATIONS
+  - The data and film catalog are historical; new releases are absent.
+  - Unrated items are unknown, not negatives. Observed-feedback selection
+    bias limits the interpretation of ranking scores.
+  - Cold users receive popularity; cold items cannot be ranked by this model.
+  - A small self-selected profile may produce weak recommendations.
+  - Genre-diversity reranking is available for exploration but has no claimed
+    accuracy benefit and is not included in the reported model comparison.
+  - A similarity explanation is descriptive, not a causal attribution.
+  - No online user study, business uplift, production scale, or fairness
+    across demographic groups is claimed. Demographic data is unused.
+
+NEXT EXPERIMENTS
+  Define a fresh validation design before adding content features for cold
+  items/users. Compare sparse-profile elicitation strategies, add warm/cold
+  slices, and evaluate ranking versus diversity at predeclared settings.
+  Preserve the original result as a baseline; do not overwrite its history
+  with selectively chosen results. A future user study would require actual
+  participants and its own protocol.

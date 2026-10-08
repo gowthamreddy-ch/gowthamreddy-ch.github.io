@@ -1,0 +1,23 @@
+# FindWise M1 demo walkthrough
+
+This is a reproducible walkthrough script, not a claim that a video was recorded.
+Use the running local application at [local development service]
+
+1. Show the fictional-data notice and the home-office collection. Explain that
+   controlled fixtures let the project test precise behavior without scraping.
+2. Choose Monitors, maximum price 250, screen size 27, and resolution 4K. Apply
+   the budget. Only View 27 ($229) and Studio 27 ($249) match; both keep their
+   standard and reference Plus prices visible. No constraint was relaxed.
+3. Select Compare on both. Open Compare and point out the differences in
+   connections, regular/member prices, and availability.
+4. Open View 27 and inspect the specification list. Add it to the bag. Change
+   quantity to two: the server returns $458. Reload to demonstrate persistence.
+   Plus pricing remains informational; no membership discount is trusted from UI.
+5. Return to the store and search for `monitr`. Explain that this is intentionally
+   the keyword baseline. Show the empty state and shopper-controlled recovery.
+   With explicit filters in place, clear only keywords and observe filters remain.
+6. Show an out-of-stock product: the bag action is disabled. Explain that M1
+   cart validation is not a checkout reservation and cannot prove no overselling.
+7. Show the measured baseline and planned next work. Typo/synonym/query parsing
+   will be compared later. Checkout, identity, orders and Plus alerts are future
+   milestones; no payment or notification occurs in this demo.

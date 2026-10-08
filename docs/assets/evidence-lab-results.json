@@ -1,0 +1,106 @@
+{
+  "recorded_at": "2026-09-29T18:56:48.577244+00:00",
+  "source_report": "evaluation-20260929T185913487291Z.json",
+  "dataset_kind": "synthetic, template-derived; not a customer or production study",
+  "dataset_hashes": {
+    "feedback-heldout.json": "8124a9ffecdc3a05132c1e4a585319c40bcc9d10f5a71e187855e7f80d70e9c6",
+    "incidents-heldout.json": "cebcfdb3ede2bc40e6ecfd88bf8974f706a510f38f081d19c8904f3d0dca7e58"
+  },
+  "source_sha256": "2150efa04bb2913d1ec5f39fa378f795bfd21d8e592b6c423e1720f869666420",
+  "prompt_sha256": "a52a42a002c679a22c056aaeb61fd41934682d4734c4ec372c4ab53e5e563415",
+  "feedback": {
+    "count": 200,
+    "correct": 188,
+    "exact_category_agreement": 0.94,
+    "segments": {
+      "beginner": {
+        "correct": 98,
+        "count": 102
+      },
+      "experienced": {
+        "correct": 90,
+        "count": 98
+      }
+    },
+    "models": [
+      "gpt-4.1-mini-2025-04-14"
+    ]
+  },
+  "triage": {
+    "count": 20,
+    "correct": 20,
+    "vendor_results": {
+      "Arista EOS": {
+        "count": 5,
+        "correct": 5
+      },
+      "Cisco IOS": {
+        "count": 5,
+        "correct": 5
+      },
+      "FRRouting": {
+        "count": 5,
+        "correct": 5
+      },
+      "Juniper Junos": {
+        "count": 5,
+        "correct": 5
+      }
+    }
+  },
+  "network": {
+    "kind": "20 paired automated lab operation trials; not human alert-to-recovery timing",
+    "paired_trials": 20,
+    "all_recovered": true,
+    "median_seconds": {
+      "inspect_then_recover": 0.022934899985557422,
+      "direct_reviewed_recovery": 0.019619900005636737
+    }
+  },
+  "comparisons": {
+    "feedback_v1": {
+      "count": 20,
+      "correct": 19
+    },
+    "feedback_v2": {
+      "count": 20,
+      "correct": 19
+    },
+    "retrieval_top1": {
+      "count": 5,
+      "correct": 5
+    },
+    "retrieval_top3": {
+      "count": 5,
+      "correct": 5
+    }
+  },
+  "tests": {
+    "recorded_at": "2026-09-29T19:47:30.254168+00:00",
+    "passed": 71,
+    "failures": 0,
+    "errors": 0,
+    "source_report": "tests.xml"
+  },
+  "safety": {
+    "recorded_at": "2026-09-29T19:05:40.618792+00:00",
+    "checks": {
+      "email_masked": true,
+      "labeled_secret_masked": true,
+      "injection_abstained": true,
+      "incident_secret_masked": true,
+      "only_vetted_checks": true,
+      "no_execution": true,
+      "audit_coverage": true
+    },
+    "semantic_support": "3/3 model-assisted spot checks; not independent human review"
+  },
+  "limitations": [
+    "Synthetic template-derived labels; not real customers or production incidents.",
+    "The prompt and retrieval comparison subsets are small; ties do not establish equivalence.",
+    "Network timing measures local software operations, not human recovery time.",
+    "September 29 reports were inspected October 8, not rerun.",
+    "Hand-authored saved examples are separate from live model evaluation.",
+    "No public deployment, physical-device recovery, or independent user study."
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "static": {
+    "createdAt": "2026-10-08T17:46:32.494Z",
+    "model": "typescript-ast-5.9.3",
+    "promptVersion": "static-v1",
+    "datasetHash": "3a3bed5964dfb8faff32a7351d41d9c26dd92e78234c4c794c9e28299c507fe6",
+    "sourceHashes": {
+      "src/review.ts": "91d52bdee96e4551cac2b5ae9515c0b6631d39e985d4ade9af2597fa3fc80230",
+      "src/provider.ts": "3b7f4acff2d0ef52f19d351b841d2666af8d7095753fbcf14d399305f2eac4f8",
+      "src/diff.ts": "820abee98f8f27dfac2969b8962baa0694ed8e797243ac201ba0d0d138457882",
+      "scripts/evaluate.ts": "7b7f4ac256f7cfc429170381584f270c8e84db5e8d53bf21a211b72fda41b4aa"
+    },
+    "environment": {
+      "node": "v24.21.0",
+      "platform": "win32",
+      "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz"
+    },
+    "metrics": {
+      "precision": 1,
+      "recall": 0.8,
+      "matchedBugs": 4,
+      "knownBugs": 5,
+      "findings": 4,
+      "cleanCases": 5,
+      "cleanWithFindings": 0,
+      "locationAccuracy": 1,
+      "rawLocations": 4,
+      "rawCount": 4,
+      "latency": {
+        "n": 10,
+        "p50Ms": 1,
+        "p95Ms": 14
+      },
+      "estimatedCostUsd": 0,
+      "unknownCostRuns": 0,
+      "failedOrSkipped": 0
+    },
+    "protocol": "One sequential trial per synthetic development case, no retries, no warmup, nearest-rank p50/p95; wall time includes validation and failures. Static receives post-change syntax; AI receives diff plus explicit context only in context mode. Held-out cases remain reserved.",
+    "interpretation": "Automated category/location candidate matching is not semantic adjudication or independent evidence. Tiny authored development cases cannot establish real-world effectiveness. Raw proposals, rejected findings, failures and missed bugs are retained."
+  },
+  "diff-only": {
+    "createdAt": "2026-10-08T17:47:06.510Z",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "promptVersion": "reviewlens-v1",
+    "datasetHash": "3a3bed5964dfb8faff32a7351d41d9c26dd92e78234c4c794c9e28299c507fe6",
+    "sourceHashes": {
+      "src/review.ts": "91d52bdee96e4551cac2b5ae9515c0b6631d39e985d4ade9af2597fa3fc80230",
+      "src/provider.ts": "3b7f4acff2d0ef52f19d351b841d2666af8d7095753fbcf14d399305f2eac4f8",
+      "src/diff.ts": "820abee98f8f27dfac2969b8962baa0694ed8e797243ac201ba0d0d138457882",
+      "scripts/evaluate.ts": "7b7f4ac256f7cfc429170381584f270c8e84db5e8d53bf21a211b72fda41b4aa"
+    },
+    "environment": {
+      "node": "v24.21.0",
+      "platform": "win32",
+      "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz"
+    },
+    "metrics": {
+      "precision": 0.5,
+      "recall": 1,
+      "matchedBugs": 5,
+      "knownBugs": 5,
+      "findings": 10,
+      "cleanCases": 5,
+      "cleanWithFindings": 3,
+      "locationAccuracy": 1,
+      "rawLocations": 10,
+      "rawCount": 10,
+      "latency": {
+        "n": 10,
+        "p50Ms": 2486,
+        "p95Ms": 7957
+      },
+      "estimatedCostUsd": 0.005719200000000001,
+      "unknownCostRuns": 0,
+      "failedOrSkipped": 0
+    },
+    "protocol": "One sequential trial per synthetic development case, no retries, no warmup, nearest-rank p50/p95; wall time includes validation and failures. Static receives post-change syntax; AI receives diff plus explicit context only in context mode. Held-out cases remain reserved.",
+    "interpretation": "Automated category/location candidate matching is not semantic adjudication or independent evidence. Tiny authored development cases cannot establish real-world effectiveness. Raw proposals, rejected findings, failures and missed bugs are retained."
+  },
+  "context": {
+    "createdAt": "2026-10-08T17:47:28.214Z",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "promptVersion": "reviewlens-v1",
+    "datasetHash": "3a3bed5964dfb8faff32a7351d41d9c26dd92e78234c4c794c9e28299c507fe6",
+    "sourceHashes": {
+      "src/review.ts": "91d52bdee96e4551cac2b5ae9515c0b6631d39e985d4ade9af2597fa3fc80230",
+      "src/provider.ts": "3b7f4acff2d0ef52f19d351b841d2666af8d7095753fbcf14d399305f2eac4f8",
+      "src/diff.ts": "820abee98f8f27dfac2969b8962baa0694ed8e797243ac201ba0d0d138457882",
+      "scripts/evaluate.ts": "7b7f4ac256f7cfc429170381584f270c8e84db5e8d53bf21a211b72fda41b4aa"
+    },
+    "environment": {
+      "node": "v24.21.0",
+      "platform": "win32",
+      "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz"
+    },
+    "metrics": {
+      "precision": 0.625,
+      "recall": 1,
+      "matchedBugs": 5,
+      "knownBugs": 5,
+      "findings": 8,
+      "cleanCases": 5,
+      "cleanWithFindings": 3,
+      "locationAccuracy": 1,
+      "rawLocations": 8,
+      "rawCount": 8,
+      "latency": {
+        "n": 10,
+        "p50Ms": 2222,
+        "p95Ms": 3097
+      },
+      "estimatedCostUsd": 0.005212800000000001,
+      "unknownCostRuns": 0,
+      "failedOrSkipped": 0
+    },
+    "protocol": "One sequential trial per synthetic development case, no retries, no warmup, nearest-rank p50/p95; wall time includes validation and failures. Static receives post-change syntax; AI receives diff plus explicit context only in context mode. Held-out cases remain reserved.",
+    "interpretation": "Automated category/location candidate matching is not semantic adjudication or independent evidence. Tiny authored development cases cannot establish real-world effectiveness. Raw proposals, rejected findings, failures and missed bugs are retained."
+  },
+  "assessment": {
+    "assessor": "Codex AI-assisted implementation audit; not a human or independent reviewer",
+    "createdAt": "2026-10-08T17:51:15.260Z",
+    "rubric": "docs/EVALUATION.md v1; conservative evidence-and-mechanism assessment",
+    "metrics": [
+      {
+        "mode": "static",
+        "truePositives": 4,
+        "falsePositives": 0,
+        "precision": 1,
+        "knownBugRecall": 0.8
+      },
+      {
+        "mode": "diff-only",
+        "truePositives": 3,
+        "falsePositives": 7,
+        "precision": 0.3,
+        "knownBugRecall": 0.6
+      },
+      {
+        "mode": "context",
+        "truePositives": 4,
+        "falsePositives": 4,
+        "precision": 0.5,
+        "knownBugRecall": 0.8
+      }
+    ],
+    "findings": [
+      {
+        "mode": "static",
+        "caseId": "guard-and",
+        "findingId": "87665e236a4304e5",
+        "category": "authorization",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3ecfd942aaab495959f2148fbf50c29eba6db066903c69634328a56af9958691"
+      },
+      {
+        "mode": "static",
+        "caseId": "limit-nan",
+        "findingId": "03a999307001c8a7",
+        "category": "input-validation",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3ecfd942aaab495959f2148fbf50c29eba6db066903c69634328a56af9958691"
+      },
+      {
+        "mode": "static",
+        "caseId": "foreach-async",
+        "findingId": "c553e87c34a97516",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3ecfd942aaab495959f2148fbf50c29eba6db066903c69634328a56af9958691"
+      },
+      {
+        "mode": "static",
+        "caseId": "empty-catch",
+        "findingId": "a3c6de3ba88c3cb9",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3ecfd942aaab495959f2148fbf50c29eba6db066903c69634328a56af9958691"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "guard-and",
+        "findingId": "4b2496f5afc68d88",
+        "category": "authorization",
+        "line": 2,
+        "accepted": false,
+        "reason": "Identifies the AND/OR defect but incorrectly explains absent-user short-circuiting and does not correctly describe the authenticated non-admin bypass. Strict mechanism rubric: mixed/wrong reasoning is not a true positive.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "limit-nan",
+        "findingId": "43f90375fee1857c",
+        "category": "input-validation",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "limit-safe",
+        "findingId": "54770d7c33462898",
+        "category": "input-validation",
+        "line": 3,
+        "accepted": false,
+        "reason": "False positive: Number.isInteger rejects NaN. The explanation itself describes correct validation.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "foreach-async",
+        "findingId": "df7b34720e1cae2e",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "promise-all",
+        "findingId": "841ff322de9c52af",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": false,
+        "reason": "Speculation: awaited Promise.all propagates rejection to the async caller. Surrounding framework handling is unknown; no new defect is established.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "empty-catch",
+        "findingId": "599a71ca203233ca",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "ownership-context",
+        "findingId": "8558327037b1a886",
+        "category": "authorization",
+        "line": 4,
+        "accepted": false,
+        "reason": "Matches the hidden oracle but is unsupported in this mode: helper policy/body is not supplied. Should abstain.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "ownership-context",
+        "findingId": "76c5a10744c519ae",
+        "category": "input-validation",
+        "line": 4,
+        "accepted": false,
+        "reason": "Speculative validation/error-handling claim without a supplied contract or surrounding error-handling evidence.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "ownership-context",
+        "findingId": "b9c3b9bbb87992c0",
+        "category": "async-errors",
+        "line": 4,
+        "accepted": false,
+        "reason": "Speculative validation/error-handling claim without a supplied contract or surrounding error-handling evidence.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "diff-only",
+        "caseId": "opaque-helper",
+        "findingId": "390cf4f198d3c823",
+        "category": "authorization",
+        "line": 2,
+        "accepted": false,
+        "reason": "Should abstain: the helper may enforce authorization. The output explicitly admits missing context.",
+        "reportHash": "5ce8348b9a9014b93044d524135d454e6deaef2798b466454c957e3cd3950989"
+      },
+      {
+        "mode": "context",
+        "caseId": "guard-and",
+        "findingId": "4b2496f5afc68d88",
+        "category": "authorization",
+        "line": 2,
+        "accepted": false,
+        "reason": "Identifies the AND/OR defect but incorrectly explains absent-user short-circuiting and does not correctly describe the authenticated non-admin bypass. Strict mechanism rubric: mixed/wrong reasoning is not a true positive.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      },
+      {
+        "mode": "context",
+        "caseId": "limit-nan",
+        "findingId": "4dff6435a2771e33",
+        "category": "input-validation",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      },
+      {
+        "mode": "context",
+        "caseId": "limit-safe",
+        "findingId": "54770d7c33462898",
+        "category": "input-validation",
+        "line": 3,
+        "accepted": false,
+        "reason": "False positive: Number.isInteger rejects NaN. The explanation itself describes correct validation.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      },
+      {
+        "mode": "context",
+        "caseId": "foreach-async",
+        "findingId": "d3e0019a441a893e",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      },
+      {
+        "mode": "context",
+        "caseId": "promise-all",
+        "findingId": "4a50dcc411ef6e0b",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": false,
+        "reason": "Speculation: awaited Promise.all propagates rejection to the async caller. Surrounding framework handling is unknown; no new defect is established.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      },
+      {
+        "mode": "context",
+        "caseId": "empty-catch",
+        "findingId": "e386f41996b149e0",
+        "category": "async-errors",
+        "line": 2,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      },
+      {
+        "mode": "context",
+        "caseId": "ownership-context",
+        "findingId": "e799b649f7a04984",
+        "category": "authorization",
+        "line": 4,
+        "accepted": true,
+        "reason": "Mechanism agrees with the seeded oracle and is supported by the supplied evidence.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      },
+      {
+        "mode": "context",
+        "caseId": "opaque-helper",
+        "findingId": "f1ec1612f885c3b4",
+        "category": "authorization",
+        "line": 2,
+        "accepted": false,
+        "reason": "Should abstain: the helper may enforce authorization. The output explicitly admits missing context.",
+        "reportHash": "3a5636aae55bbd05192717ccc7592f093a8a8160596d745042b0271ba07eb999"
+      }
+    ]
+  }
+}

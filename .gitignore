@@ -1,0 +1,5 @@
+.local/
+publish-config.local.json
+.env*
+node_modules/
+*.log

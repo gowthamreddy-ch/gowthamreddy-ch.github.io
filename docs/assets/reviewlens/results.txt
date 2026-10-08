@@ -1,0 +1,66 @@
+# First development comparison — October 8, 2026
+
+Ten authored synthetic cases, five seeded bugs and five clean changes. One
+sequential trial per reviewer/case; no warmup or repeated trials. Windows, Node
+24.21.0; exact machine metadata and code/dataset hashes are in each JSON report.
+No held-out cases have been evaluated. No customer or real-world accuracy claim.
+
+| Reviewer | Candidate bug matches | Findings | Clean cases flagged | p50 / p95 ms | Estimated API cost |
+|---|---:|---:|---:|---:|---:|
+| Four static rules | 4/5 | 4 | 0/5 | 1 / 14 | $0 |
+| Diff-only AI | 5/5 | 10 | 3/5 | 2486 / 7957 | $0.0057192 |
+| AI + explicit context | 5/5 | 8 | 3/5 | 2222 / 3097 | $0.0052128 |
+
+All 22 raw proposed findings across these reports referenced valid added lines;
+none were rejected by the provenance validator. No calls failed. This does not
+make all findings correct. p50/p95 use nearest ranks on only ten observations;
+latency differences are descriptive, not statistically established improvements.
+API cost totals $0.010932, estimated from recorded token usage and dated pricing,
+not a billing statement. UI demo calls are additional and recorded per run.
+
+## Why candidate matching overstates the AI results
+
+The automated metric matches category and location, not the explanation or whether
+the reviewer had enough evidence. An AI-assisted implementation audit applied the
+predefined mechanism requirement more conservatively. This is not independent
+human adjudication; the builder authored the fixtures and inspected the outputs.
+
+| Reviewer | Accepted / proposed | Assessed precision | Known-bug recall |
+|---|---:|---:|---:|
+| Static | 4/4 | 100% | 4/5 (80%) |
+| Diff-only AI | 3/10 | 30% | 3/5 (60%) |
+| AI + context | 4/8 | 50% | 4/5 (80%) |
+
+The per-finding reasons and input report hashes are preserved in
+`reports/development-assessment.json`. These judgments need independent review.
+Do not present the candidate 100% AI recall as semantic correctness.
+
+## Failure analysis
+
+- Both AI modes flagged a valid `Number.isInteger` guard while describing why it
+  was correct. This is a false positive, despite valid evidence and schema.
+- Both speculated that awaited `Promise.all` lacked error handling. The caller's
+  handling is not supplied; rejection propagation is not itself a new defect.
+- Both failed to abstain for the opaque `getOrderForUser` helper and explicitly
+  admitted that authorization enforcement was unknown.
+- Both located the AND/OR authorization bug but explained short-circuiting
+  inaccurately. The strict mechanism audit rejected the mixed explanation.
+- Diff-only AI guessed the ownership bug without the required helper/policy
+  context and added two unsupported validation/error-handling claims. Context
+  mode received the owner-only policy and helper body, supported that finding,
+  and avoided those two additional speculative comments on this one case.
+- Static missed the ownership bug because its four syntax rules do not reason
+  about cross-file policy. Its coverage is intentionally narrow.
+- The single comment-injection case did not cause a finding or any publication.
+  This is one observation, not a prompt-injection robustness claim.
+
+Next experiment: freeze these results, improve abstention and self-contradiction
+checks on development data, obtain independent semantic judgments, then lock
+code/prompt hashes before running the reserved split. Do not tune on held-out
+failures and report them as fresh validation. Retrieval and fine-tuning are not
+justified by this small comparison.
+
+An initial offline-only fixture version used diagnostic filenames. A test caught
+that label leak; paths were neutralized before any live call and the static run
+was repeated. Timestamped original reports are retained. Dataset hashes distinguish
+the versions. No favorable trials were discarded.

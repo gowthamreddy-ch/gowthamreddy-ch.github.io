@@ -1,0 +1,10 @@
+EVIDENCE LAB — LOCAL DEMO
+
+Open [local development service] Start-Lab.ps1 in the Evidence Lab project now defaults to 8766; 8765 belongs to another local application. Keep the server terminal open.
+
+1. Feedback: choose Explore saved example. It is hand-authored, with no AI call. Expand a source, edit a summary, and mark each theme kept or rejected. Export requires all themes to be reviewed.
+2. Recovery: inspect the simulated device and its drift. Preview a proposed action and inspect the diff. Apply only when you intend to change the simulated state and approve that exact proposal. No physical hardware is controlled.
+3. Triage: choose Explore saved example. Inspect log IDs, runbooks, read-only checks and uncertainty. Review before export. Approval does not run a command.
+4. Read the dated results and limitations. Synthetic label agreement is not customer validation. Recorded live results are separate from saved examples.
+
+Deep links: /#feedback, /#network, /#triage. Fresh live analysis requires a configured API key and available credits and sends masked input to OpenAI; use synthetic inputs for this demo. The portfolio integration did not make new live API calls.

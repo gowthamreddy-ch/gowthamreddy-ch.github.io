@@ -1,0 +1,27 @@
+# Five-minute demo
+
+1. Open ReviewLens at port 4185. Point out the synthetic-fixture and local labels.
+2. Select the admin guard PR. Inspect the changed AND guard. Run Static baseline.
+   Explain why an authenticated non-admin bypasses it and why null access is unsafe.
+3. Select the finding location. Inspect the exact evidence, fix and suggested test.
+   Mark Useful, approve the draft, and export it. No GitHub comment is sent.
+4. Open Run history and reopen the run. Reload and reopen it again to demonstrate
+   persistent decisions. Mark Not useful to show approval is removed.
+5. Compare a clean guard case: zero findings is limited coverage, not proof of safety.
+6. Open the project deletion PR and Available context. Explain the helper and owner
+   policy. Static analysis misses this bug. Live modes send only the displayed
+   inputs described by the privacy disclosure; they require configured API access.
+7. Show Evaluation and the preserved reports. Explain authored development data,
+   candidate matching, semantic review, and the still-reserved held-out split.
+
+Offline fallback: static mode is real local analysis. The saved example is hand
+authored and labeled; never describe it as a successful model call.
+
+## Usability study protocol (prepared, not conducted)
+
+Recruit 3–5 developers with consent. Do not use proprietary PRs. Ask each to find
+one supported issue, reject an unsupported claim, identify missing context, and
+export one approved draft using synthetic cases. Counterbalance case order.
+Observe completion, errors, time-on-task, keyboard barriers and confidence in the
+evidence. Ask what information was missing. Record anonymized notes and report
+individual outcomes and limitations; do not claim conversion or productivity gains.

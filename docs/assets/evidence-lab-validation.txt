@@ -1,0 +1,53 @@
+EVIDENCE LAB — RECORDED VALIDATION AND CURRENT REVIEW
+
+Historical measurements below were recorded September 29, 2026. They were not rerun during the October 8 portfolio integration. Source report filenames identify retained local records; application source and raw reports are not downloadable from the portfolio. The linked evidence-lab-results.json is an aggregate extract.
+
+October 8 browser checks confirmed saved feedback themes, source expansion, the feedback export review gate, saved triage with sources, and a state-bound recovery preview with application disabled before approval. Existing simulated-device state was preserved. Live inference and optional monitoring availability were not retested.
+
+# Engineering handoff
+
+Built September 29, 2026. This is a from-scratch rebuild with new engineering measurements, not a reproduction of historical study results.
+
+| Check | Observed result | Evidence |
+| --- | --- | --- |
+| Automated tests | 71 passed, including a real loopback SNMP UDP request | `tests.xml` |
+| Feedback classification | 188/200 exact category matches (94%) | `evaluation-20260929T185913487291Z.json` |
+| Synthetic segment breakdown | Beginner-tagged 98/102; experienced-tagged 90/98 | Same report; these are synthetic tags, not real customer segments |
+| Incident diagnosis | 20/20 labels matched; 5/5 per vendor style | Same report |
+| Network recovery | All 40 recoveries in 20 paired automated lab trials succeeded | Same report |
+| Prompt comparison | v1 and v2 each 19/20 on the comparison subset | Same report |
+| Retrieval comparison | Top-1 and top-3 each 5/5 on the comparison subset | Same report |
+| Live privacy/adversarial checks | Seven checks passed | `safety-20260929T190540Z.json` |
+| Model-assisted semantic support spot check | 3/3 sampled summaries judged supported | Same safety report; not independent human review |
+| Monitoring | Prometheus scraped both exporters; SNMP collector up | `monitoring-verification.json` |
+| Grafana | Local nine-panel dashboard imported successfully | Same monitoring report |
+| Configuration | Compose and YAML/JSON parse; Promtool validates three alert rules | Local command checks |
+
+Browser checks confirmed the feedback review gate, saved examples, source display, live incident analysis, fault injection, recovery preview, approval, and successful recovery. The two WebMCP tools registered, accepted valid inputs, and rejected invalid ones.
+
+## Interpretation
+
+Feedback labels are synthetic and template-derived. Categories overlap: signup failures can also be reliability failures, and unclear signup instructions can also be usability problems. Twelve disagreements are retained. **94% is agreement with these authored synthetic labels, not with 200 independently labeled customer comments.** Synthetic segment tags do not establish fairness or real customer-segment performance.
+
+The incidents are synthetic vendor-style scenarios, not actual production outages. All source IDs and selected checks were validated, but valid citations alone do not prove semantic support. Human review remains necessary.
+
+Network medians were approximately 0.0229 seconds for inspect-then-recover and 0.0196 seconds for direct reviewed recovery. These measure local software operations, not human alert-to-recovery. The historical résumé results of 30→12 minutes, 92%, 8→3 minutes, and 10→6 minutes have not been copied into the rebuild's measurements.
+
+## Verification boundaries
+
+- The application and monitoring are local; no public website is claimed.
+- Docker Compose was validated, but its engine was unavailable. Checksum-verified portable Windows Prometheus and Grafana were run instead.
+- Windows restricted alert-rule path resolution and dashboard file provisioning. The active portable stack uses `--metrics-only`; alert definitions passed Promtool validation separately. The dashboard was imported through Grafana's authenticated local API.
+- Ansible playbooks and GitLab CI configuration are supplied. They have not run in Linux/WSL or remote GitLab here; WSL access was denied.
+- SNMP v2c was exercised against the loopback lab agent. No physical router, production endpoint, or remote recovery was accessed.
+- Responsive CSS is implemented; exhaustive mobile/accessibility certification is not claimed.
+- Independent human timing studies and semantic-support review remain to be conducted with the supplied protocol and empty records.
+
+## Current local services
+
+- App: `[local development service]`
+- Grafana: `[local development service]`
+- Prometheus: `[local development service]`
+- Synthetic SNMP: loopback UDP 1161; exporters: HTTP 9108 and 9109.
+
+Keep the processes running for these links to work. README instructions explain restarting them. The API key is outside the deliverable and ZIP. Monitoring databases and simulated state are under ignored `runtime/`.

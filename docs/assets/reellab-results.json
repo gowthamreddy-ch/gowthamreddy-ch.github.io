@@ -1,0 +1,145 @@
+{
+  "dataset": "MovieLens 100K",
+  "dataset_url": "https://grouplens.org/datasets/movielens/100k/",
+  "archive_sha256": "50d2a982c66986937beb9ffb3aa76efe955bf3d5c6b761f4e3a7cd717c6a3229",
+  "seed": 42,
+  "train_ratings": 79999,
+  "validation_ratings": 10001,
+  "test_ratings": 10000,
+  "cutoff_utc": [
+    "1998-03-07T02:21:09+00:00",
+    "1998-03-31T22:11:49+00:00"
+  ],
+  "candidate_items": 1616,
+  "factors": 12,
+  "iterations": 12,
+  "selected_regularization": 0.15,
+  "candidates": [
+    {
+      "regularization": 0.05,
+      "validation": {
+        "users": 185,
+        "cold_users": 116,
+        "relevant_items": 5674,
+        "eligible_relevant_items": 5645,
+        "eligible_relevance_coverage": 0.9948889672188932,
+        "personalized": {
+          "ndcg10": 0.1283291320716897,
+          "recall10": 0.04875955637906592,
+          "hit10": 0.5675675675675675
+        },
+        "popularity": {
+          "ndcg10": 0.14493531363716122,
+          "recall10": 0.06307943155654706,
+          "hit10": 0.6324324324324324
+        },
+        "ndcg_difference_ci95": [
+          -0.027361114737639785,
+          -0.006640878979352827
+        ]
+      },
+      "training_rmse": [
+        0.8463811420846036,
+        0.7458216957496037,
+        0.7147303681773938,
+        0.6993964873519841,
+        0.6903473889802629,
+        0.6847088406196863,
+        0.6810303018000075,
+        0.6784843899093701,
+        0.6766002441460631,
+        0.6751121234361331,
+        0.6738734253944322,
+        0.6728096351891484
+      ]
+    },
+    {
+      "regularization": 0.15,
+      "validation": {
+        "users": 185,
+        "cold_users": 116,
+        "relevant_items": 5674,
+        "eligible_relevant_items": 5645,
+        "eligible_relevance_coverage": 0.9948889672188932,
+        "personalized": {
+          "ndcg10": 0.14192149543357666,
+          "recall10": 0.0578887569258996,
+          "hit10": 0.6
+        },
+        "popularity": {
+          "ndcg10": 0.14493531363716122,
+          "recall10": 0.06307943155654706,
+          "hit10": 0.6324324324324324
+        },
+        "ndcg_difference_ci95": [
+          -0.011566086741475549,
+          0.004561411196257399
+        ]
+      },
+      "training_rmse": [
+        0.9100018404848047,
+        0.896186344503208,
+        0.8700245450415528,
+        0.8465796486041038,
+        0.8344275134647761,
+        0.8272098752264642,
+        0.8226330696465479,
+        0.8196979631673967,
+        0.8177560631739543,
+        0.8164076887643632,
+        0.8154214821984813,
+        0.8146667321045102
+      ]
+    }
+  ],
+  "test": {
+    "users": 147,
+    "cold_users": 95,
+    "relevant_items": 5629,
+    "eligible_relevant_items": 5563,
+    "eligible_relevance_coverage": 0.9882750044412862,
+    "personalized": {
+      "ndcg10": 0.19330665021004453,
+      "recall10": 0.07337657289851818,
+      "hit10": 0.6666666666666666
+    },
+    "popularity": {
+      "ndcg10": 0.1929047841022955,
+      "recall10": 0.07119735200381108,
+      "hit10": 0.6666666666666666
+    },
+    "ndcg_difference_ci95": [
+      -0.007314714029043366,
+      0.00741368034496152
+    ]
+  },
+  "three_rating_test": {
+    "users": 147,
+    "cold_users": 95,
+    "relevant_items": 5629,
+    "eligible_relevant_items": 5563,
+    "eligible_relevance_coverage": 0.9882750044412862,
+    "personalized": {
+      "ndcg10": 0.18197725241447885,
+      "recall10": 0.058091140819421246,
+      "hit10": 0.6258503401360545
+    },
+    "popularity": {
+      "ndcg10": 0.1929047841022955,
+      "recall10": 0.07119735200381108,
+      "hit10": 0.6666666666666666
+    },
+    "ndcg_difference_ci95": [
+      -0.023351220866649716,
+      -9.700746467009411e-05
+    ]
+  },
+  "protocol": "Global chronological split. Select regularization by validation NDCG@10. Frozen training-only model. Rank all training-observed movies excluding items rated in training or validation. Relevant = held-out rating >= 4. Users with no eligible relevant item are omitted from ranking averages. Unknown test items are reported separately. New profiles are folded into frozen factors.",
+  "limitations": [
+    "1997\u201398 movie catalog; not current tastes or releases.",
+    "Unrated items are unknown, not proven dislikes; ranking metrics use observed positives only.",
+    "One dataset and one temporal split; no causal or online engagement claims.",
+    "Three-rating experiment uses the latest training ratings; it does not reproduce self-selected visitor preferences.",
+    "Genre diversity control is an interactive exploration and is not included in these benchmark metrics."
+  ]
+}

@@ -1,0 +1,84 @@
+# ReviewLens: local MVP and milestone plan
+
+Small teams need a review assistant that surfaces a few actionable defects with
+evidence, rather than stylistic noise. This is a product hypothesis; no customer
+study or productivity gain is claimed. Initial language/domain: TypeScript and
+JavaScript backend code. Scope: authorization, input validation, async/error handling.
+
+## First working slice
+
+Choose a versioned synthetic PR, inspect the unified diff and relevant code,
+select static analysis / diff-only AI / AI with displayed context, then queue a
+review. Inspect valid changed-line findings and explicit abstentions. Mark a
+finding useful or not useful, approve a draft, and export approved drafts locally.
+Review history, latency, usage and cost estimates persist. A separately labeled
+hand-authored example keeps the workflow usable without credentials.
+
+No submitted code executes. No GitHub read/write access, comments, merges or
+source modifications are performed. The local app is single-user, not an
+authenticated multi-tenant service. Repository scoping prevents accidental mixups;
+GitHub authorization boundaries are a future milestone.
+
+## Architecture and data model
+
+React/TypeScript UI → same-origin Node.js HTTP API → SQLite. One bounded worker
+thread runs the trusted reviewers on source text. TypeScript's compiler API parses
+syntax without evaluating it. SQLite stores migrations, repository IDs, run input
+snapshots, queue state, validated results, usage, and finding review decisions.
+
+Node 24 LTS is isolated from other projects on this laptop. Native node:sqlite
+avoids a database service for the local slice; it is a release-candidate API in
+the inspected Node documentation, isolated behind store.ts. TypeScript 5.9.3 is
+pinned for its JavaScript compiler API, rather than adopting a new compiler major
+while building the baseline. Esbuild creates static React assets; one HTTP port
+serves UI and API. This keeps language parsing, UI types and the backend together.
+
+```mermaid
+flowchart LR
+  Browser[React review workspace] --> API[Loopback Node API]
+  API --> DB[(SQLite runs and review decisions)]
+  API --> Worker[One bounded worker thread]
+  Worker --> AST[Static syntax rules]
+  Worker --> Model[OpenAI Responses API]
+  Worker --> Validate[Changed-line and evidence validation]
+  Validate --> DB
+```
+
+## Milestones and acceptance gates
+
+The persistent model has four tables:
+
+| Table | Key | Main fields and constraint |
+|---|---|---|
+| repositories | id | Synthetic repository name |
+| runs | UUID | Repository FK, case, mode, input/result JSON, status, attempt count, timestamps, availability time; unique repository + idempotency key |
+| decisions | run + finding ID | Useful/not-useful/unset feedback, approval, updated time; run FK |
+| schema_migrations | version | Applied timestamp; migrations run in a transaction |
+
+Findings are immutable within a completed result snapshot. Decisions refer to a
+validated finding ID and cannot approve a finding from another run. Future GitHub
+installations and delivery IDs need separate identity and uniqueness constraints.
+
+1. **Local workflow:** reproducible fixtures, diff mapping, static and live modes,
+   offline example, persisted queue/history/feedback, exact-location validation,
+   explicit abstention, developer-only measurement and working UI evidence.
+2. **GitHub integration:** installation/repository identity, verified raw-body HMAC
+   webhooks, unique delivery IDs, persistent job leases, bounded backoff, revoked
+   access handling, strict context isolation, human-reviewed comments only on an
+   explicitly authorized repository allowlist. Test forged/replayed events,
+   concurrent deliveries, permission changes and ambiguous publish retries.
+3. **Held-out evaluation:** freeze code/prompt/data versions before opening the
+   reserved split, score all three reviewers, preserve raw outputs and failures,
+   inspect false positives and abstentions, and report uncertainty and cost.
+4. **Deployment and portfolio:** auth and secret management, monitoring, TLS,
+   deployment smoke tests, actual screenshots, a practiced demo, limitations and
+   resume bullets limited to completed work. No public launch is authorized yet.
+
+## Provider boundary
+
+Static and hand-authored modes never contact a model. Diff-only mode sends only
+the selected fixture's diff and allowed changed-line map. Context mode additionally
+sends exactly the source files visible in the Context panel. Repository labels
+are synthetic. The API key stays server-side. No network fetch of imports, code
+execution, shell tools, retrieval service or fine-tuning is included. Model output
+is untrusted and validated independently. See SECURITY.md for residual limitations.

@@ -1,0 +1,41 @@
+# Decisions to explain
+
+**Why this stack instead of .NET?** This focused developer tool benefits from the
+TypeScript compiler API for syntax analysis and one shared language for the UI,
+worker and result schema. A small Node modular app is a reversible decision, not
+a general claim against ASP.NET. The interesting backend boundaries—jobs,
+transactions, idempotency and authorization—carry across stacks.
+
+**Why SQLite and a worker?** Local setup stays reproducible without extra services.
+Persistent job state survives restarts; AST parsing and remote requests run off
+the HTTP thread. BEGIN IMMEDIATE serializes claims. One process owns the queue.
+A deployed multi-worker system would need leases and ownership tokens; this
+version deliberately does not claim that capability.
+
+**Why three reviewers?** Static rules provide transparent, cheap behavior.
+Diff-only AI shows what a model can establish without hidden helper assumptions.
+Explicit context tests whether the additional evidence helps. Same model and
+validator isolate that change. Retrieval would add complexity before its value
+is measured, so context is supplied deliberately.
+
+**What makes a finding trustworthy?** Valid location and exact evidence are
+necessary but insufficient. The reasoning must identify a real new defect; a
+person judges it. Output validation cannot establish security correctness.
+Abstentions, raw rejected proposals and failed calls are retained.
+
+**Why not retry everything?** A timed-out request may still have completed and
+incurred cost. Automatically replaying it obscures cost and duplicates work.
+Explicit transient HTTP failures get a bounded retry policy; ambiguous failures
+are shown for a person to retry. API submission keys prevent double-click jobs.
+
+**How will GitHub publishing be safe?** Verify the webhook signature before
+enqueueing; deduplicate deliveries; bind installation, repository and commit;
+check access again in the worker; require an explicit repository allowlist and
+human approval; revalidate locations against the exact reviewed commit. None of
+this future integration should be claimed complete from a local export demo.
+
+**What can the evaluation prove?** A handful of seeded development cases expose
+specific failure modes, not general code-review quality. Candidate category/line
+matches can mis-score the mechanism; semantic adjudication and independent
+review are separate. Related variants stay together. Held-out results, when run,
+must retain failures and the fact that the builder authored the dataset.

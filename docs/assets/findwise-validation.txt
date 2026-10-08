@@ -1,0 +1,60 @@
+# Milestone 1 validation
+
+## API integration
+
+13 tests passed against the actual ASP.NET Core API and local PostgreSQL 18.6 on
+October 8, 2026. See `tests/test_api.py`. Coverage includes catalog/detail routes,
+all hard filters, boundary prices, empty results, stock and ordering, malformed
+filter rejection, literal/AND keyword matching, guest-cart isolation, HttpOnly and
+SameSite cookie flags, attempted price/membership tampering, absolute-quantity
+retry behavior, removal, rejected-edit rollback, cross-origin rejection, and
+simultaneous edits to different products in one cart.
+
+An initial test failed because it assumed cookie-attribute capitalization; the raw
+HTTP header used lowercase. The corrected case-insensitive header assertion passes.
+This did not require a cookie implementation change.
+
+These tests do **not** establish authenticated authorization, stock reservation
+correctness, payment idempotency, or notification deduplication. Those features
+have not been implemented and have explicit M2/M4 test gates.
+
+## Search baseline — tuning split only
+
+Protocol and full per-query outcomes: `benchmark-baseline.json`.
+Judgments: `tests/search-queries.json`, version 1; 12 tuning queries and 8 reserved
+held-out queries. The developer authored binary relevance judgments against the
+synthetic product facts. These are not independent assessors or real customer logs.
+
+| Measurement | Observed baseline |
+| --- | --- |
+| Mean NDCG@5, 10 positive-intent tuning queries | 0.4869 |
+| Mean Recall@5, same queries | 0.4500 |
+| Correct empty result, 2 no-result tuning queries | 2/2 |
+| Median request latency | 1.95 ms |
+| 95th percentile request latency | 2.42 ms |
+
+Conditions: 18 products, Windows 11, PostgreSQL 18.6, ASP.NET Core 10.0.12,
+Python 3.12.14 client, direct loopback HTTP, concurrency 1, one warmup per query,
+20 recorded requests per query. Latency includes HTTP and JSON parsing, excludes
+the browser, rendering and Next.js proxy. This is a small warm-cache development
+measurement, **not a production speed or scaling claim**.
+
+Exact keyword queries work. Misspellings fail, and words such as “under” are still
+literal keywords; natural-language price constraints are not parsed in M1. Partial
+substring overlap occasionally finds synonyms accidentally (for example “display”
+inside “DisplayPort”), which is not a robust synonym implementation. Explicit UI
+filters correctly return the two 27-inch 4K monitors below $250.
+
+Do not report an improvement until M3 has a measured implementation and a fair
+comparison. Freeze the query set and catalog revision, tune only on the tuning
+split, then score both systems on held-out queries once. Report relevance,
+constraint violations, empty-result recovery, and latency with repeated runs.
+The held-out split has not been run in M1. It is small and authored by the same
+developer; independent judgments and more queries would improve credibility.
+
+## Reproduction and CI
+
+`dotnet build`, Next.js production build and TypeScript checking passed during M1.
+The GitHub Actions workflow defines PostgreSQL-backed integration tests and a web
+build. It has not been executed on GitHub because no repository has been published.
+See the final progress entry for browser checks and screenshots.
