@@ -34,7 +34,7 @@ offer screenshots, evidence and a contact link for demonstrations.
 ## Updating
 
 With Node.js 22 or later, create an ignored `publish-config.local.json` containing
-`{"source":"absolute path to the reviewed portfolio dist directory"}`. Run:
+`{"source":"absolute path to the reviewed portfolio dist directory","siteUrl":"https://gowthamreddy-ch.github.io/","statsApi":"https://gowtham-portfolio-stats.readyamber2.chatgpt.site"}`. Run:
 
 ```sh
 node scripts/prepare-pages.mjs
@@ -45,3 +45,13 @@ Review `git diff` before committing. Upload only the allowlisted public assets.
 Never place API keys, backend source, databases or dependency folders in `docs/`.
 The HTML, CSS and browser JavaScript used to display any public website are
 necessarily accessible to its visitors. No application-source download is offered.
+
+## Live activity
+
+The homepage loads GitHub (`gowthamreddy-ch`) and LeetCode (`gowtham1123`) statistics from [the public stats service](https://gowtham-portfolio-stats.readyamber2.chatgpt.site/health). This separate read-only service fetches LeetCode on demand. GitHub Actions refreshes `data/github.json` on a 15-minute schedule using its built-in token; the service reads that public feed to avoid shared hosting API rate limits. Scheduled runs may be delayed. No visitor login or personal access token is required. Successful results are cached for up to 15 minutes. If a platform is unavailable, the UI labels previously fetched values as a saved snapshot and retains their original timestamp.
+
+The GitHub feed is marked as saved data if its last successful update is over 45 minutes old.
+
+The service is deployed with Sites, project `appgprj_6aca696bfcd481919c530bcdf543024e`; its source is versioned in that Site’s source repository. It only accepts these two public profiles, and browser access is restricted to this portfolio’s origin. The static GitHub Pages site contains no credentials or server runtime.
+
+The replacement homepage preserves all existing case study URLs and legacy homepage anchors. Light, Dark, Local time, and System appearance choices remain available; System is the default.
