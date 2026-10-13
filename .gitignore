@@ -3,3 +3,12 @@ publish-config.local.json
 .env*
 node_modules/
 *.log
+.playwright-cli/
+__pycache__/
+*.py[cod]
+*.sqlite*
+*.db
+*.pem
+*.key
+*.p12
+*.pfx

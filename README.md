@@ -11,7 +11,7 @@ Working projects in full-stack engineering, recommendation systems, and AI evalu
 | Project | Focus | Evidence |
 | --- | --- | --- |
 | [ReviewLens](https://gowthamreddy-ch.github.io/projects/reviewlens/) | Static and AI code review with changed-line evidence and human-approved drafts. | Synthetic development comparison, false-positive analysis, and recorded results. |
-| [ReelLab](https://gowthamreddy-ch.github.io/projects/reellab/) | Personalized movie recommendations and editable taste profiles. | MovieLens 100K evaluation against popularity, including a three-rating experiment. |
+| [ReelLab](https://gowthamreddy-ch.github.io/projects/reellab/) | Filmmaking studies, source-grounded craft examples, phone exercises, and live movie/series taste discovery. | Craft research checks, catalog and shuffle verification, responsive screenshots; historical MovieLens evaluation labeled separately. |
 | [FindWise](https://gowthamreddy-ch.github.io/projects/findwise/) | Product discovery, explicit filters, comparison, and persistent carts. | API validation, baseline relevance results, and desktop/mobile screenshots. |
 | [Evidence Lab](https://gowthamreddy-ch.github.io/projects/evidence-lab/) | Feedback analysis, incident triage, and reviewed network recovery. | Recorded synthetic evaluations and simulated-lab checks. |
 
