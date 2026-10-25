@@ -9,41 +9,6 @@
     "total": 9,
     "days": [
       {
-        "date": "2025-10-19",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-10-20",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-10-21",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-10-22",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-10-23",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-10-24",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-10-25",
-        "level": 0,
-        "count": 0
-      },
-      {
         "date": "2025-10-26",
         "level": 0,
         "count": 0
@@ -1862,11 +1827,16 @@
         "date": "2026-10-24",
         "level": 0,
         "count": 0
+      },
+      {
+        "date": "2026-10-25",
+        "level": 0,
+        "count": 0
       }
     ]
   },
   "warnings": [],
-  "updatedAt": "2026-10-24T21:59:24.425Z",
+  "updatedAt": "2026-10-25T00:13:01.889Z",
   "cached": false,
   "stale": false,
   "source": "github-actions"
