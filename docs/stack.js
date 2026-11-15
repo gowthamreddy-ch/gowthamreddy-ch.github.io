@@ -84,6 +84,12 @@
     viewport.append(track); badges.append(viewport);
   });
   function reset() { pinned = hovered = focused = null; save(); render(); }
+  window.addEventListener('popstate', () => {
+    const requested = new URL(location.href).searchParams.get('skill');
+    pinned = skills.find(skill => skill.id === requested) || null;
+    hovered = focused = null;
+    render();
+  });
   clear.addEventListener('click', reset);
   document.querySelector('#work').addEventListener('keydown', event => {
     if (event.key === 'Escape') { reset(); event.preventDefault(); }

@@ -6,15 +6,26 @@
   const controllers={};
   const numbers=new Intl.NumberFormat();
   const dateFormat=new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
-  const apiRoot="https://gowtham-portfolio-stats.readyamber2.chatgpt.site";
+  const apiRoot="https://gowtham-portfolio-stats.gowthamreddych.chatgpt.site";
   const card=platform=>document.getElementById(`${platform}-activity`);
   const $=(platform,selector)=>card(platform).querySelector(selector);
   const set=(platform,selector,value)=>{$(platform,selector).textContent=value;};
   const format=value=>Number.isFinite(value)?numbers.format(value):'—';
   const profileUrl=(platform,username)=>platform==='github'?`https://github.com/${encodeURIComponent(username)}`:`https://leetcode.com/u/${encodeURIComponent(username)}/`;
+  function valid(platform,data,username){
+    if(!data || typeof data.username!=='string' || data.username.toLowerCase()!==username.toLowerCase() || !Number.isFinite(Date.parse(data.updatedAt)))return false;
+    if(data.warning!=null&&typeof data.warning!=='string')return false;
+    if(data.warnings!=null&&(!Array.isArray(data.warnings)||!data.warnings.every(value=>typeof value==='string')))return false;
+    const count=v=>Number.isFinite(v)&&v>=0;
+    const days=values=>Array.isArray(values)&&values.every(d=>d&&/^\d{4}-\d{2}-\d{2}$/.test(d.date)&&Number.isFinite(Date.parse(d.date))&&(d.count===null||count(d.count)));
+    if(platform==='github')return count(data.repositories)&&count(data.followers)&&(!data.calendar||(count(data.calendar.total)&&days(data.calendar.days)));
+    return ['all','easy','medium','hard'].every(k=>count(data.solved?.[k])&&count(data.totals?.[k]))&&(!data.activity||days(data.activity.days));
+  }
   function calendar(platform,days,total,label) {
     const graph=$(platform,'.activity-heatmap');
     graph.replaceChildren();
+    graph.parentElement.querySelector('.calendar-months')?.remove();
+    $(platform,'.daily-data tbody').replaceChildren();
     if(!days?.length){graph.hidden=true;return;}
     graph.hidden=false;
     graph.setAttribute('aria-label',`${format(total)} ${label}. From ${days[0].date} to ${days.at(-1).date}. Daily values are available below.`);
@@ -37,7 +48,7 @@
   function render(platform,data,state='live') {
     $(platform,'.activity-content').hidden=false;
     $(platform,'.stats-empty').hidden=true;
-    const snapshot=state==='snapshot', stale=snapshot||data.stale;
+    const snapshot=state==='snapshot', stale=snapshot||data.stale||Date.now()-Date.parse(data.updatedAt)>45*60_000;
     set(platform,'.source-state',stale?'Saved snapshot':'Connected');
     card(platform).dataset.state=stale?'stale':'ready';
     set(platform,'.updated-at',`${stale?'Saved':'Updated'} ${dateFormat.format(new Date(data.updatedAt))}`);
@@ -57,12 +68,13 @@
       const recent=data.activity?.days.filter(day=>day.count>0).at(-1);
       set(platform,'.leetcode-activity-note',!data.activity?'Activity calendar unavailable.':recent?`Latest reported activity: ${recent.date}.`:'No submissions reported in the current calendar period.');
     }
-    set(platform,'.stats-message',data.warning||data.warnings?.join(' ')||'');
+    set(platform,'.stats-message',data.warning||data.warnings?.join(' ')||(stale?'The latest available data is older than expected.':data.cached?'Checked the service. Platform data is cached for up to 15 minutes.':''));
   }
   function savedData(platform,username){
-    try{const cached=JSON.parse(localStorage.getItem(`gr-stats-${platform}:${username.toLowerCase()}`));if(cached?.updatedAt)return cached;}catch{}
+    let cached;
+    try{cached=JSON.parse(localStorage.getItem(`gr-stats-${platform}:${username.toLowerCase()}`));}catch{}
     const snapshot=window.PORTFOLIO_STATS_SNAPSHOT?.[platform];
-    return snapshot?.username?.toLowerCase()===username.toLowerCase()?snapshot:null;
+    return [cached,snapshot].filter(data=>valid(platform,data,username)).sort((a,b)=>Date.parse(b.updatedAt)-Date.parse(a.updatedAt))[0]||null;
   }
   async function load(platform){
     controllers[platform]?.abort();
@@ -83,10 +95,12 @@
     button.disabled=true;element.setAttribute('aria-busy','true');
     const timeout=setTimeout(()=>controller.abort(),35_000);
     try{
-      const response=await fetch(`${apiRoot}/api/stats/${platform}?username=${encodeURIComponent(username)}`,{signal:controller.signal,credentials:'omit'});
+      const response=await fetch(`${apiRoot}/api/stats/${platform}?username=${encodeURIComponent(username)}`,{signal:controller.signal,credentials:'omit',cache:'no-store'});
       const data=await response.json();
       if(!response.ok)throw new Error(data.error||'Profile statistics are unavailable.');
       if(controllers[platform]!==controller)return;
+      if(!valid(platform,data,username))throw new Error('The stats service returned incomplete data. Please try again later.');
+      if(previous&&Date.parse(data.updatedAt)<Date.parse(previous.updatedAt))throw new Error('The service returned older data. Keeping the newer saved snapshot.');
       render(platform,data);
       try{localStorage.setItem(`gr-stats-${platform}:${username.toLowerCase()}`,JSON.stringify(data));}catch{}
     }catch(error){
@@ -103,6 +117,7 @@
   if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){observer.disconnect();start();}},{rootMargin:'250px'});observer.observe(document.getElementById('activity'));}else start();
   // Re-check when a visitor returns after 15 minutes; the server applies its own cache.
   let lastCheck=Date.now();
+  window.addEventListener('online',()=>{if(started){lastCheck=Date.now();platforms.forEach(load);}});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&started&&Date.now()-lastCheck>15*60_000){lastCheck=Date.now();platforms.forEach(load);}});
   setInterval(()=>{if(started&&!document.hidden&&Date.now()-lastCheck>=15*60_000){lastCheck=Date.now();platforms.forEach(load);}},60_000);
 })();

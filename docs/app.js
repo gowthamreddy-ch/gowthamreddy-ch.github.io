@@ -54,6 +54,10 @@
   const projectName = new URL(location.href).searchParams.get('project');
   const initialTab = tabs.find(tab => tab.id === `tab-${projectName}`);
   if (initialTab) selectProject(initialTab, false);
+  window.addEventListener('popstate', () => {
+    const name = new URL(location.href).searchParams.get('project');
+    selectProject(tabs.find(tab => tab.id === `tab-${name}`) || tabs[0], false);
+  });
   const tabOrientation = matchMedia('(max-width: 800px)');
   const updateOrientation = () => document.querySelector('[role="tablist"]').setAttribute('aria-orientation', tabOrientation.matches ? 'horizontal' : 'vertical');
   updateOrientation(); tabOrientation.addEventListener('change', updateOrientation);
