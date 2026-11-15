@@ -1,0 +1,52 @@
+{
+  "capturedAt": "2026-11-15",
+  "source": "Actual current local ReviewLens application; no mocked UI or generated screenshots",
+  "captureTool": "Chromium via Playwright",
+  "data": "Saved synthetic fixture reviews; no new model calls or Docker executions during capture",
+  "verificationExecutedAt": "2026-10-13T18:06:52.586Z",
+  "benchmarkDate": "2026-10-08",
+  "assets": [
+    {
+      "file": "context-20261115.jpg",
+      "sha256": "2e0bf861cfd4b074d63c78faeaa852edba8471ce6e07974e4f95b95848f7872d",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 229703
+    },
+    {
+      "file": "evaluation-20261115.jpg",
+      "sha256": "877ad677ca8154939660f7bbaec3e4dceee87f689c30e737b8f498d2af84374e",
+      "width": 1156,
+      "height": 368,
+      "bytes": 85516
+    },
+    {
+      "file": "history-20261115.jpg",
+      "sha256": "b1127bae2e2102a31bc0941929052b51c8ad3207665d3a8303affa9e74c39f39",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 153801
+    },
+    {
+      "file": "mobile-verification-20261115.jpg",
+      "sha256": "62b3be271d60f0fe9978c6e563e4c9df3bf5b18d4250b2f9bf85d09cc3a7338f",
+      "width": 390,
+      "height": 844,
+      "bytes": 69490
+    },
+    {
+      "file": "verification-20261115.jpg",
+      "sha256": "46789d70be3bd918330b748188d043795670658c6b58c9495ee28a6116ea078c",
+      "width": 1022,
+      "height": 1538,
+      "bytes": 244534
+    },
+    {
+      "file": "workspace-20261115.jpg",
+      "sha256": "44a6b3cbe07b80d8fb561ac80431aa386d87ecb565fc8ccdd8b577e0ef7ca01b",
+      "width": 1440,
+      "height": 1100,
+      "bytes": 205429
+    }
+  ]
+}

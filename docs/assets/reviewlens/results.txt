@@ -1,5 +1,27 @@
 # First development comparison — October 8, 2026
 
+Portfolio refreshed November 15, 2026. The reviewer measurements below are the
+original frozen comparison, not new model runs. All 17 current automated tests
+passed on November 15, including verification-plan, result-classification,
+runner-constraint and HTTP boundary coverage. Those tests use a simulated
+executor; they are separate from the real Docker evidence summarized next.
+
+## Separate executable verification — October 13, 2026
+
+The saved authorization-fixture run completed six real Docker executions.
+The same hand-authored test ran twice per source version: original, PR and
+candidate fix. Original and fix passed the non-admin, admin and anonymous
+checks in both trials. The PR allowed non-admin success and failed anonymous
+rejection in both trials; the admin positive control passed. Evidence captured
+from the current application is in verification-summary.json.
+
+This establishes the displayed fixture-handler behavior using a response double.
+It does not establish full-application security, AI-generated test quality or
+general code-review accuracy. No model call was involved in verification, and
+the Docker executions were not rerun merely to refresh these screenshots.
+
+## Frozen reviewer benchmark
+
 Ten authored synthetic cases, five seeded bugs and five clean changes. One
 sequential trial per reviewer/case; no warmup or repeated trials. Windows, Node
 24.21.0; exact machine metadata and code/dataset hashes are in each JSON report.

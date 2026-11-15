@@ -1,5 +1,24 @@
 # Decisions to explain
 
+**What does executable verification add?** For one allowlisted authorization
+fixture, a frozen hand-authored test runs twice against original code, the PR,
+and a hand-authored fix. The observed failure must match the claimed defect;
+syntax errors, missing runtimes and incomplete checks cannot count as proof.
+An admin positive control prevents accepting a fix that simply rejects everyone.
+The same test bytes and immutable image ID are used across all six executions.
+
+**What is the execution boundary?** Reviewers only parse source. A separate
+verification queue reconstructs an approved plan from the saved review and
+checks its fingerprint before execution. Containers have no network or host
+mounts, no model credentials, a non-root user, a read-only root and bounded
+resources. This is intentionally not an arbitrary untrusted-code runner.
+Repository authentication and stronger isolation would be required to expand it.
+
+**What did it prove?** The saved October 13 run reproduced non-admin access in
+both PR trials; original and candidate fix passed all three frozen checks twice.
+It exercises the exact handler with a response double, not a database, real
+deletion, full HTTP authentication or the repository's complete test suite.
+
 **Why this stack instead of .NET?** This focused developer tool benefits from the
 TypeScript compiler API for syntax analysis and one shared language for the UI,
 worker and result schema. A small Node modular app is a reversible decision, not

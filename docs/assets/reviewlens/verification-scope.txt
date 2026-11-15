@@ -1,0 +1,92 @@
+# Executable finding verification: authorization v1
+
+This slice runs a **hand-authored, immutable regression test** against three
+versions of the built-in authorization handler: original code, the PR snapshot,
+and a hand-authored candidate fix. Each version runs twice in a fresh Docker
+container. The test, source versions, reporter, and contract are bound to SHA-256
+hashes and saved with the verification job. No model call is made.
+
+## Local setup and use
+
+Use Node 24 and Docker Desktop with its Linux engine running. Install the runner
+image once (this downloads a public runtime image; no project source is sent):
+
+```sh
+docker pull node:24-alpine
+npm run build
+npm start
+```
+
+Open the admin-guard fixture, run Static baseline (or open its saved review), and
+choose **Verify finding**. Inspect the frozen test and candidate patch before or
+after execution. Download the test, patch, or JSON evidence from the result.
+Other fixtures remain review-only. An unavailable Docker engine or image produces
+a blocked result, never a reproduced-defect badge. `REVIEWLENS_VERIFY_IMAGE` can
+select an installed Node 24 image; verification resolves and records its immutable
+image ID, uses that ID for every execution, and never pulls automatically.
+
+Run the actual six-container acceptance check after building:
+
+```sh
+node scripts/verify-demo.mjs
+```
+
+It writes `reports/verification-demo.json` only after completing real execution.
+The unit test suite uses explicitly simulated executor results; these are never
+stored as product verification evidence.
+
+## What is checked
+
+The explicit demonstration contract requires non-admin and unauthenticated
+requests to return 403 without a success payload or an exception. An admin must
+still receive the successful deletion response. The response object is doubled;
+the handler and its guard run unchanged. The fixture's `.ts` contents are plain
+JavaScript and are copied byte-for-byte into `handler.mjs` for execution.
+
+This does not exercise a database, real deletion, a network request, a complete
+authorization stack, or the repository's full test suite. The behavior contract
+is reviewed example policy, not a requirement inferred by AI. The candidate patch
+restores the original OR guard; it is not dynamically generated from finding text.
+
+The same test bytes execute against all variants. Original-code failures make
+the regression conclusion inconclusive. The bypass claim requires a recorded 200
+response with `deleted:true` for a non-admin, alongside a passing admin control.
+Fix acceptance requires all three checks to pass. Missing checks, invalid output,
+syntax/runtime setup failures, and inconsistent repeated observations do not
+count as reproduced defects or verified fixes. A PR producing a clean result is
+only "not reproduced by these checks," not certified safe.
+
+## Execution boundary
+
+The API accepts only a plan fingerprint and idempotency key. It cannot accept test
+code, source code, commands, image names, environment variables, or arbitrary
+paths. Before execution, the queue reconstructs the plan from the immutable run
+and compares the entire executable plan. Only the exact built-in source pair,
+repository, file, and finding location pass the allowlist.
+
+One verification runs at a time with a maximum queue of five. Containers use an
+installed image by immutable ID, `--pull=never`, no network or host mounts,
+read-only root, non-root UID/GID, all capabilities dropped, no-new-privileges,
+128 MiB memory, 0.5 CPU, 64 processes, and a small temporary filesystem. The API
+key is not included in the Docker CLI environment or container. The child test
+has an eight-second deadline and each Docker invocation a bounded deadline.
+Named containers are removed in `finally`; unconfirmed cleanup is reported.
+
+Running jobs interrupted by a server restart are blocked and their named
+containers are cleaned up; they are never silently marked successful or rerun.
+Queued jobs resume. New attempts require an explicit action. Saved historical
+results are marked stale when the executable contract changes. Artifacts and
+history use the same repository scope and CSRF boundary as review jobs.
+
+This is deliberately not a general untrusted-repository execution service.
+Arbitrary repositories require stronger VM-backed tenant isolation, dependency
+and network policy, authentication, resource quotas, and an audited artifact
+channel. The Docker daemon is trusted infrastructure, not accessible from tests.
+
+## Regression coverage
+
+Tests cover scope rejection, source/contract tampering, immutable artifacts,
+false-proof prevention, positive controls, flaky/incomplete executions, parser
+validation, resource settings, persistent records, idempotency, blocked runners,
+HTTP scope/CSRF, and artifact export. The live script separately validates the
+real Docker runner.

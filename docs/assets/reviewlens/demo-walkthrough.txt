@@ -1,17 +1,28 @@
-# Five-minute demo
+# ReviewLens demo — current review and verification workflow
+
+Current interface captured November 15, 2026. The screenshots display saved
+October review and verification results; they are not a new AI benchmark.
 
 1. Open ReviewLens at port 4185. Point out the synthetic-fixture and local labels.
 2. Select the admin guard PR. Inspect the changed AND guard. Run Static baseline.
    Explain why an authenticated non-admin bypasses it and why null access is unsafe.
 3. Select the finding location. Inspect the exact evidence, fix and suggested test.
-   Mark Useful, approve the draft, and export it. No GitHub comment is sent.
-4. Open Run history and reopen the run. Reload and reopen it again to demonstrate
+   Open Verify this finding. Explain the reviewed contract, frozen regression test,
+   hand-authored candidate fix, and three checks including legitimate admin access.
+   The saved October 13 result has six real Docker executions: original and fix
+   pass all checks twice; the PR fails non-admin and anonymous checks twice.
+   A new execution requires the configured Docker runtime. A blocked runner is
+   not evidence that a bug was reproduced. Other fixtures remain review-only.
+4. Inspect execution evidence, source/test hashes and runner identity. Local test,
+   candidate patch and evidence exports are available inside the application.
+   Mark Useful, approve a review draft, and export it. No GitHub comment is sent.
+5. Open Run history and reopen the run. Reload and reopen it again to demonstrate
    persistent decisions. Mark Not useful to show approval is removed.
-5. Compare a clean guard case: zero findings is limited coverage, not proof of safety.
-6. Open the project deletion PR and Available context. Explain the helper and owner
+6. Compare a clean guard case: zero findings is limited coverage, not proof of safety.
+7. Open the project deletion PR and Available context. Explain the helper and owner
    policy. Static analysis misses this bug. Live modes send only the displayed
    inputs described by the privacy disclosure; they require configured API access.
-7. Show Evaluation and the preserved reports. Explain authored development data,
+8. Show Evaluation and the preserved reports. Explain authored development data,
    candidate matching, semantic review, and the still-reserved held-out split.
 
 Offline fallback: static mode is real local analysis. The saved example is hand

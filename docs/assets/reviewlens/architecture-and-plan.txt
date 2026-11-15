@@ -14,7 +14,11 @@ finding useful or not useful, approve a draft, and export approved drafts locall
 Review history, latency, usage and cost estimates persist. A separately labeled
 hand-authored example keeps the workflow usable without credentials.
 
-No submitted code executes. No GitHub read/write access, comments, merges or
+Review modes analyze source without executing it. A separate, opt-in verification
+worker executes only the exact allowlisted authorization fixture in isolated Docker
+containers. It runs a frozen, hand-authored test twice against the original, PR,
+and candidate fix, retaining evidence and distinguishing blocked runs from findings.
+See VERIFICATION.md for setup and scope. No GitHub read/write access, comments, merges or
 source modifications are performed. The local app is single-user, not an
 authenticated multi-tenant service. Repository scoping prevents accidental mixups;
 GitHub authorization boundaries are a future milestone.
@@ -42,11 +46,20 @@ flowchart LR
   Worker --> Model[OpenAI Responses API]
   Worker --> Validate[Changed-line and evidence validation]
   Validate --> DB
+  API --> Verify[Allowlisted verification queue]
+  Verify --> Docker[Disposable Docker containers]
+  Docker --> Original[Original handler]
+  Docker --> PR[PR handler]
+  Docker --> Fix[Candidate fix]
+  Original --> Evidence[Frozen-check observations and hashes]
+  PR --> Evidence
+  Fix --> Evidence
+  Evidence --> DB
 ```
 
 ## Milestones and acceptance gates
 
-The persistent model has four tables:
+The persistent model has five tables:
 
 | Table | Key | Main fields and constraint |
 |---|---|---|
@@ -54,6 +67,7 @@ The persistent model has four tables:
 | runs | UUID | Repository FK, case, mode, input/result JSON, status, attempt count, timestamps, availability time; unique repository + idempotency key |
 | decisions | run + finding ID | Useful/not-useful/unset feedback, approval, updated time; run FK |
 | schema_migrations | version | Applied timestamp; migrations run in a transaction |
+| verifications | UUID | Repository/run/finding scope, immutable plan and hashes, queue state, execution evidence, timestamps; unique repository + idempotency key |
 
 Findings are immutable within a completed result snapshot. Decisions refer to a
 validated finding ID and cannot approve a finding from another run. Future GitHub
@@ -79,6 +93,7 @@ installations and delivery IDs need separate identity and uniqueness constraints
 Static and hand-authored modes never contact a model. Diff-only mode sends only
 the selected fixture's diff and allowed changed-line map. Context mode additionally
 sends exactly the source files visible in the Context panel. Repository labels
-are synthetic. The API key stays server-side. No network fetch of imports, code
-execution, shell tools, retrieval service or fine-tuning is included. Model output
+are synthetic. The API key stays server-side. Reviewers have no network fetch of
+imports, code execution, shell tools, retrieval service or fine-tuning. The separate
+verification worker receives no model credentials and has no network or host mounts. Model output
 is untrusted and validated independently. See SECURITY.md for residual limitations.
